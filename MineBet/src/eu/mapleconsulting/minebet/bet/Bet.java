@@ -109,7 +109,7 @@ public class Bet {
 			p.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.GOLD+"Hai vinto nell'evento "+ ChatColor.WHITE+ cwinner.getBet().getName()
 					+ ChatColor.GOLD+", ricevi " + ChatColor.WHITE+""+payment+ChatColor.GOLD+ " "+ 
 					plugin.getEcon().currencyNamePlural());
-			p.playSound(p.getLocation(),Sound.FIREWORK_LARGE_BLAST, 10, 1);
+			p.playSound(p.getLocation(),Sound.ENTITY_FIREWORK_ROCKET_LARGE_BLAST, 10, 1);
 			plugin.getEcon().depositPlayer(p, payment);
 		}
 	}
