@@ -30,7 +30,7 @@ public class MineBetTabListener implements TabCompleter {
 			}
 			return completers;
 		}
-		if(arg3.length==2 && (!arg3[0].equalsIgnoreCase("createvent"))){
+		if(arg3.length==2 && (!arg3[0].equalsIgnoreCase("createvent")) && (!arg3[0].equalsIgnoreCase("default"))){
 			List<String> completers=new ArrayList<>();
 			for(String betEvent: plugin.getBetHandler().getBetEventNames()){
 				if(betEvent.toLowerCase().startsWith(arg3[1].toLowerCase())){

@@ -17,6 +17,5 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Marco/Documents/Bukkit build tools/Spigot/Spigot-API/target/spigot-api-1.17-R0.1-SNAPSHOT-shaded.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

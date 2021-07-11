@@ -41,7 +41,7 @@ public class ChallengersMenu implements Listener {
 		Inventory eventsMenu=event.getInventory();
 		Player better= (Player) event.getWhoClicked();
 		try{
-			if(ChatColor.stripColor(eventsMenu.getName()).equalsIgnoreCase(challengersMenuName)){
+			if(ChatColor.stripColor(event.getView().getTitle()).equalsIgnoreCase(challengersMenuName)){
 				if(event.getClick()==ClickType.RIGHT){
 					if(event.getSlot()>=0||event.getSlot()<=inventorySize && event.getCurrentItem()!=null 
 							&& event.getCurrentItem().hasItemMeta()){
