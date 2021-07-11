@@ -8,7 +8,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 
 import eu.mapleconsulting.minebet.commands.CommandInterface;
-import eu.mapleconsulting.minebet.exceptions.BetNotFoundException;
 
 public class MineBetTabListener implements TabCompleter {
 
@@ -20,7 +19,8 @@ public class MineBetTabListener implements TabCompleter {
 
 	@Override
 	public List<String> onTabComplete(CommandSender arg0, Command arg1,
-			String arg2, String[] arg3) {
+			String arg2, String[] arg3) {	
+		try {
 		if(arg3.length==1){
 			List<String> completers=new ArrayList<>();
 			for(CommandInterface cmd: plugin.getCommandHandler().getCommands()){
@@ -42,18 +42,18 @@ public class MineBetTabListener implements TabCompleter {
 
 		if(arg3.length==3 && (!arg3[0].equalsIgnoreCase("closevent"))){
 			List<String> completers=new ArrayList<>();
-			try {
 				for(String challengerName: plugin.getBetHandler().getBetByName(arg3[1]).getChallengerNames()){
 					if(challengerName.toLowerCase().startsWith(arg3[2].toLowerCase())){
 						completers.add(challengerName);		
 					}
 				}
-			} catch (BetNotFoundException e) {
-				return null;
-			}
 			return completers;
 		}
-		return null;	
+		}catch(Exception e)
+		{
+			return null;
+		}
+		return null;
 	}
 
 }
