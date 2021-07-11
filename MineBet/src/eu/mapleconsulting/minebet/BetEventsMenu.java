@@ -30,11 +30,14 @@ public class BetEventsMenu implements Listener {
 	public BetEventsMenu(MineBet plugin){
 		this.plugin=plugin;
 	}
+	
 	@EventHandler
 	public void interact(PlayerInteractEvent event){
 		Player player=event.getPlayer();
 		Action action=event.getAction();
-		if(player.getItemInHand().getType()== Material.STICK && (action.equals(Action.RIGHT_CLICK_AIR))){
+		if((player.getInventory().getItemInMainHand().getType()== Material.STICK ||
+				player.getInventory().getItemInOffHand().getType()== Material.STICK)
+				&& (action.equals(Action.RIGHT_CLICK_AIR))){
 			if(!plugin.getBetHandler().getBetList().isEmpty()){
 				openBetEventsMenu(player);
 			}else player.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.DARK_RED+ "Nessun evento scommessa in corso");
@@ -43,7 +46,6 @@ public class BetEventsMenu implements Listener {
 
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent event){
-		Inventory eventsMenu=event.getInventory();
 		Player better= (Player) event.getWhoClicked();
 		try{
 			if(ChatColor.stripColor(event.getView().getTitle()).equalsIgnoreCase(betEventsMenuName)){

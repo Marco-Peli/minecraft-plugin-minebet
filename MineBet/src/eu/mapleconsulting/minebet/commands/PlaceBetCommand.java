@@ -55,20 +55,20 @@ public class PlaceBetCommand extends CommandPattern {
 	private boolean deployBet(Player executor, String[] args, double placingBet){
 		Bet b;
 		try {
-			b = plugin.getBetHandler().getBetByName(args[1]);
-			if(b.hasAlreadyBidden(executor)){
-				return true;
-			}
-			if(!b.isValidChallengerName(args[2])){
+			String betName = args[1];
+			String challengerName = args[2];
+			b = plugin.getBetHandler().getBetByName(betName);
+
+			if(!b.isValidChallengerName(challengerName)){
 				executor.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.DARK_RED+
 						"Non esiste nessuno sfidante con questo nome associato a questo evento.");
 				return true;
 			}
 			
 			if(b.isOpen()){
-				b.getChallengerByName(args[2]).addNewBet(executor, placingBet);
+				b.placeBet(challengerName, placingBet, executor);
 				executor.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.GOLD+
-						"Hai correttamente piazzato una scommessa di "+ChatColor.WHITE+""+placingBet+ChatColor.GOLD+" sull'evento "+ChatColor.WHITE+args[1]);
+						"Hai correttamente piazzato una scommessa di "+ChatColor.WHITE+""+placingBet+ChatColor.GOLD+" sull'evento "+ChatColor.WHITE+betName);
 				return true;
 			}else
 				executor.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.DARK_RED+

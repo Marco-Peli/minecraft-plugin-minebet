@@ -45,7 +45,12 @@ public class Challenger {
 	}
 	
 	public void addNewBet(Player executor, double bet){
+		removeBet(executor);
 		bettersUUID.put(executor.getUniqueId().toString(), bet);
+	}
+	
+	public void removeBet(Player executor) {
+		bettersUUID.remove(executor.getUniqueId().toString());
 	}
 
 	public void setBet(Bet bet) {

@@ -131,6 +131,14 @@ public class Bet {
 		return true;
 	}
 	
+	public void placeBet(String challengerName, double amount, Player better){
+		for(Challenger c: challengers)
+		{
+			c.removeBet(better);
+		}
+		getChallengerByName(challengerName).addNewBet(better, amount);
+	}
+	
 	public boolean hasAlreadyBidden(Player executor){
 		for(Challenger c: challengers){
 			if(c.getBettersUUID().containsKey(executor.getUniqueId().toString())){
