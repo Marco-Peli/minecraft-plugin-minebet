@@ -18,7 +18,7 @@ public class AbortBetEventCommand extends CommandPattern {
 	public AbortBetEventCommand(MineBet plugin) {
 		super("bet", "abort");
 		this.plugin=plugin;
-		setDescription("Cancella un evento scommessa e rimborsa gli scommettitori");
+		setDescription("Delete a bet event and refund the betters");
 		setUsage("/bet abort <nome_evento>");
 		setArgumentRange(2, 2);
 		setIdentifier("abort");
@@ -34,18 +34,18 @@ public class AbortBetEventCommand extends CommandPattern {
 					for(String toBeRefundedUUID: c.getBettersUUID().keySet()){
 						Player refunded=Bukkit.getPlayer(UUID.fromString(toBeRefundedUUID));
 						plugin.getEcon().depositPlayer(refunded, c.getBettersUUID().get(refunded.getUniqueId().toString()));
-						refunded.sendMessage(ChatColor.WHITE+"[MineBet] "+ ChatColor.GOLD+"L'evento " + ChatColor.WHITE+args[1]+ChatColor.GOLD+" e' stato eliminato prima della conclusione,"
-								+ " vieni rimborsato di " + ChatColor.WHITE+""+c.getBettersUUID().get(refunded.getUniqueId().toString())+ChatColor.GOLD+" " +plugin.getEcon().currencyNamePlural());
+						refunded.sendMessage(ChatColor.WHITE+"[MineBet] "+ ChatColor.GOLD+"Event " + ChatColor.WHITE+args[1]+ChatColor.GOLD+" was deleted before time,"
+								+ " you get a refund of " + ChatColor.WHITE+""+c.getBettersUUID().get(refunded.getUniqueId().toString())+ChatColor.GOLD+" " +plugin.getEcon().currencyNamePlural());
 					}
 				}
 			}
 			plugin.getBetHandler().getBetList().remove(b);
 			executor.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.GOLD+
-					"L'evento "+ ChatColor.WHITE+args[1]+ ChatColor.GOLD+" e' stato correttamente eliminato e gli scommettitori rimborsati!");
+					"Event "+ ChatColor.WHITE+args[1]+ ChatColor.GOLD+" has been successfully dleted and betters refunded!");
 			return true;
 		} catch (BetNotFoundException e) {
 			executor.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.DARK_RED+
-					"Il nome dell'evento non e' corretto.");
+					"The selected bet event does not exist.");
 			return true;
 		}
 	}

@@ -44,7 +44,7 @@ public class BetHandler {
 				return true;
 			}
 		}
-		executor.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.DARK_RED + "Nessun evento scommessa con questo nome trovato.");
+		executor.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.DARK_RED + "No bet event with this name found.");
 		return true;
 	}
 

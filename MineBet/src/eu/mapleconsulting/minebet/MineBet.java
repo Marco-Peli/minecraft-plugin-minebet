@@ -46,7 +46,7 @@ public class MineBet extends JavaPlugin {
 		registerTabCompleter();
 		setupEconomy();
 		registerPlayerListener();
-		lookForUpdates();
+		//lookForUpdates();
 	}
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {

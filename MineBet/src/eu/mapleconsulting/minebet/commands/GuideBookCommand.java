@@ -11,7 +11,7 @@ public class GuideBookCommand extends CommandPattern {
 	public GuideBookCommand(MineBet plugin) {
 		super("bet", "guidebook");
 		this.plugin=plugin;
-		setDescription("Ricevi una breve guida all'interfaccia di minebet");
+		setDescription("Receive a brief guide to MineBet");
 		setUsage("/bet guidebook");
 		setArgumentRange(1, 2);
 		setIdentifier("guidebook");
@@ -22,10 +22,10 @@ public class GuideBookCommand extends CommandPattern {
 	public boolean execute(Player executor, String[] args) {
 		if(!executor.getInventory().contains(plugin.getGuideBook())){
 		executor.getInventory().addItem(plugin.getGuideBook());
-		executor.sendMessage(ChatColor.GOLD+"[Minebet] Hai ricevuto la breve guida all'interfaccia di Minebet!");
+		executor.sendMessage(ChatColor.GOLD+"[Minebet] You successfully received the short guide to MineBet!");
 		return true;
 		}else {
-			executor.sendMessage(ChatColor.DARK_RED+"[Minebet] Possiedi gia' la guida all'interfaccia di!");
+			executor.sendMessage(ChatColor.DARK_RED+"[Minebet] You already have the MineBet short guide!");
 			return true;
 		}
 	}

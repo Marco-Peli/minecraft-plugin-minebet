@@ -22,8 +22,8 @@ public class CreateBetEventCommand extends CommandPattern {
 	public CreateBetEventCommand(MineBet plugin){
 		super("bet", "createvent");
 		this.plugin=plugin;
-		setDescription("Crea un nuovo evento scommessa.");
-        setUsage("/bet createvent <nome_evento> <sfidante_n> <quota_n>, max " +plugin.getConfigManager().getMaxChallengersPerBet() +" sfidanti");
+		setDescription("Creates a new bet event.");
+        setUsage("/bet createvent <event_name> <opponent_n> <quotation_n>, max " +plugin.getConfigManager().getMaxChallengersPerBet() +" sfidanti");
         setArgumentRange(6, (plugin.getConfigManager().getMaxChallengersPerBet()*2)+2);
         setIdentifier("createvent");
         setPermission("bet.command.createvent");
@@ -32,13 +32,13 @@ public class CreateBetEventCommand extends CommandPattern {
 	public boolean execute(Player executor, String[] args) {
 		//controllo condizioni
 		if(!(plugin.getBetHandler().getBetList().size()<plugin.getConfigManager().getMaxBetEvents())){
-			executor.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.DARK_RED+ "Numero massimo di eventi scommessa raggiunto, max: " +
-					plugin.getConfigManager().getMaxBetEvents()+ " eventi.");
+			executor.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.DARK_RED+ "You reached the maximum of concurrent bet events, max: " +
+					plugin.getConfigManager().getMaxBetEvents()+ " events.");
 			return true;
 		}
 		
 		if(args.length%2!=0){
-			executor.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.DARK_RED+ "Uno o più nomi o quote sono mancanti.");
+			executor.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.DARK_RED+ "One or more opponents or quotations are missing.");
 			return true;
 		}
 		
@@ -47,23 +47,23 @@ public class CreateBetEventCommand extends CommandPattern {
 			Double.parseDouble(args[quoteIndex]);
 			}
 			} catch(NumberFormatException e){
-				executor.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.DARK_RED+ "Quote non valide.");
+				executor.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.DARK_RED+ "Invalid quotations.");
 				return true;
 		    }
 		for (Bet b: plugin.getBetHandler().getBetList()){
 			if(b.getName().equalsIgnoreCase(args[1])){
-				executor.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.DARK_RED+ "Nome per l'evento gia scelto, scegline un altro.");
+				executor.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.DARK_RED+ "The event name has been already taken.");
 				return true;
 			}
 		}
 		if(isBetNameLengthInvalid(args, executor)){
-			executor.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.DARK_RED+ "Lunghezza massima per il nome dell'evento superata, max: " + ChatColor.WHITE + "" +
+			executor.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.DARK_RED+ "Error, max event name length: " + ChatColor.WHITE + "" +
 					plugin.getConfigManager().getMaxEventLength() + "" + ChatColor.DARK_RED+ " chars");
 			return true;
 		}
 		
 		if(isDuplicates(args)){
-			executor.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.DARK_RED+ "I nomi degli sfidanti non possono coincidere");
+			executor.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.DARK_RED+ "Opponents names cannot be the same");
 			return true;
 		}
 		
@@ -81,13 +81,13 @@ public class CreateBetEventCommand extends CommandPattern {
 		//creazione nuovo evento scommessa
 		
 		plugin.getBetHandler().addNewBet(new Bet(plugin, challengers, dateString+" "+preciseDateString, true, args[1], executor.getName()));
-		executor.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.GOLD+ "Evento scommessa " + ChatColor.WHITE + args[1] +
-				ChatColor.GOLD+ " correttamente creato!");
+		executor.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.GOLD+ "Bet event " + ChatColor.WHITE + args[1] +
+				ChatColor.GOLD+ " successfully created!");
 		try {
 			plugin.getBetHandler().getBetByName(args[1]).setNewBetInChallengers();
 			Utils.notifyNewBetEvent(plugin.getBetHandler().getBetByName(args[1]).getName());
 		} catch (BetNotFoundException e) {
-			executor.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.DARK_RED+ "Errore sconosciuto.");
+			executor.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.DARK_RED+ "Unknown error.");
 		}
 		
 		return true;

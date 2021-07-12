@@ -14,8 +14,8 @@ public class CancelBetCommand extends CommandPattern {
 	public CancelBetCommand(MineBet plugin) {
 		super("bet", "cancelbet");
 		this.plugin=plugin;
-		setDescription("Annulla la propria scommessa su un evento");
-		setUsage("/bet cancel <nome_evento>");
+		setDescription("Cancel your bet on event <event>");
+		setUsage("/bet cancel <bet_event_name>");
 		setArgumentRange(2, 2);
 		setIdentifier("cancel");
 		setPermission("bet.command.cancel");
@@ -29,7 +29,7 @@ public class CancelBetCommand extends CommandPattern {
 			return b.cancelBet(executor);
 		}catch(BetNotFoundException e){
 			executor.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.DARK_RED+
-					"Il nome dell'evento non e' corretto.");
+					"Selected bet event does not exist.");
 			return true;
 		}
 	

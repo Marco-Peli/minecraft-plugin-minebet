@@ -20,8 +20,7 @@ public class SendBook extends BukkitRunnable {
 	public void run() {
 		if(!event.getPlayer().hasPlayedBefore()){
 			event.getPlayer().getInventory().addItem(plugin.getGuideBook());
-			event.getPlayer().sendMessage(ChatColor.GOLD+"[Minebet] Hai ricevuto la breve guida introduttiva"
-					+ " a Minebet per esserti loggato per la prima volta!");
+			event.getPlayer().sendMessage(ChatColor.GOLD+"[Minebet] You received the short guide to MineBet for being logged for the first time!");
 		}
 	}
 }

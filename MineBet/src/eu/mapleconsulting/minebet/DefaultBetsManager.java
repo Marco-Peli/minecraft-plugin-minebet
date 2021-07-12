@@ -10,6 +10,8 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
+import eu.mapleconsulting.minebet.util.Utils;
+
 public class DefaultBetsManager {
 	private final String prefix="bets.";
 	private File betsFile;
@@ -50,7 +52,7 @@ public class DefaultBetsManager {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		better.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.GOLD+ "L'ammontare della tua puntata di default e' ora di: " +
+		better.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.GOLD+ "Your default bet amount is now: " +
 				ChatColor.WHITE+ defaultBets.get(better.getUniqueId().toString()) + ChatColor.GOLD+ " "+plugin.getEcon().currencyNamePlural());
 		return true;
 	}
@@ -58,19 +60,19 @@ public class DefaultBetsManager {
 	public boolean displayDefaultBet(Player executor){
 		if(!isDefaultBet(executor.getUniqueId().toString())){
 			executor.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.DARK_RED+
-					"Non hai ancora inserito nessuna puntata di default");
+					"Youhave not inserted a default bet yet, /bet default <amount> to set");
 			return true;
 		}
-		executor.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.GOLD+ "L'ammontare della tua scommessa di default e': " +
+		executor.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.GOLD+ "Your default bet amount is: " +
 					ChatColor.WHITE+ defaultBets.get(executor.getUniqueId().toString()) + ChatColor.GOLD+ " "+plugin.getEcon().currencyNamePlural());
 		return true;
 	}
 	
 	private void createBetsFile() throws IOException{
 		if(!betsFile.exists()){
-			betsConfig.set(prefix+"Lista delle puntate di default", useless);
+			betsConfig.set(prefix+"Default_bets", useless);
 			betsConfig.save(betsFile);
-			System.out.println("[MineBet] Registro puntate default creato");
+			Utils.printConsoleMsg("Default bets storage file created");
 		}
 	}
 	

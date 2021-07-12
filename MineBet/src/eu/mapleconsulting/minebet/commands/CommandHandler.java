@@ -10,10 +10,10 @@ import org.bukkit.entity.Player;
 
 public class CommandHandler {
 
-	private final String notPlayerMessage="Solo un giocatore puo' eseguire questo comando";
-	private final String invalidArgsMessage="Argomenti non validi, uso corretto:";
-	private final String invalidCommand="Comando non valido, /bet help per i comandi disponibili";
-	private final String invalidPermissions="Non hai i permessi per eseguire questo comando";
+	private final String notPlayerMessage="Only a player can execute this command";
+	private final String invalidArgsMessage="Invalid arguments, correct use:";
+	private final String invalidCommand="Invalid command, /bet help available commands";
+	private final String invalidPermissions="You don't have required permissions to execute the command";
 	private List<CommandInterface> commands;
 
 	public CommandHandler() {

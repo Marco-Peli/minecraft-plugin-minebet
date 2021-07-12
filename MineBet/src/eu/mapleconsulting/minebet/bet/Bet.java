@@ -10,6 +10,7 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
 import eu.mapleconsulting.minebet.MineBet;
+import eu.mapleconsulting.minebet.exceptions.EventClosedException;
 
 public class Bet {
 	private List<Challenger> challengers;
@@ -92,8 +93,8 @@ public class Bet {
 					Player p;
 					double bet=c.getBettersUUID().get(looserPlayerUUID);
 					p= Bukkit.getPlayer(UUID.fromString(looserPlayerUUID));
-					p.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.GOLD+"Hai perso nell'evento "+ ChatColor.WHITE+ this.name
-							+ ChatColor.GOLD+", perdi " + ChatColor.WHITE+""+bet+ChatColor.GOLD+ " "+ 
+					p.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.GOLD+"You lost in event "+ ChatColor.WHITE+ this.name
+							+ ChatColor.GOLD+", you lose " + ChatColor.WHITE+""+bet+ChatColor.GOLD+ " "+ 
 							plugin.getEcon().currencyNamePlural());
 					
 				}
@@ -106,8 +107,8 @@ public class Bet {
 			Player p;
 			double payment=cwinner.getBettersUUID().get(winnerPlayerUUID)*cwinner.getQuote();
 			p= Bukkit.getPlayer(UUID.fromString(winnerPlayerUUID));
-			p.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.GOLD+"Hai vinto nell'evento "+ ChatColor.WHITE+ cwinner.getBet().getName()
-					+ ChatColor.GOLD+", ricevi " + ChatColor.WHITE+""+payment+ChatColor.GOLD+ " "+ 
+			p.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.GOLD+"You won in event "+ ChatColor.WHITE+ cwinner.getBet().getName()
+					+ ChatColor.GOLD+", you get " + ChatColor.WHITE+""+payment+ChatColor.GOLD+ " "+ 
 					plugin.getEcon().currencyNamePlural());
 			p.playSound(p.getLocation(),Sound.ENTITY_FIREWORK_ROCKET_LARGE_BLAST, 10, 1);
 			plugin.getEcon().depositPlayer(p, payment);
@@ -120,14 +121,14 @@ public class Bet {
 				double bet=c.getBettersUUID().get(executor.getUniqueId().toString());
 				c.getBettersUUID().remove(executor.getUniqueId().toString());
 				executor.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.GOLD+
-						"Hai rimosso correttamente tua scommessa di " + 
+						"You successfuly removed your bet of " + 
 							ChatColor.WHITE+ bet + " " + ChatColor.GOLD + 
-							plugin.getEcon().currencyNamePlural()+ ChatColor.GOLD+ " sull'evento " + ChatColor.WHITE+ this.name);
+							plugin.getEcon().currencyNamePlural()+ ChatColor.GOLD+ " on event " + ChatColor.WHITE+ this.name);
 				return true;
 			}
 		}
 		executor.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.DARK_RED+
-				"Non hai piazzato nessuna scommessa su questo evento");
+				"You have no bets on this event");
 		return true;
 	}
 	
@@ -142,7 +143,7 @@ public class Bet {
 	public boolean hasAlreadyBidden(Player executor){
 		for(Challenger c: challengers){
 			if(c.getBettersUUID().containsKey(executor.getUniqueId().toString())){
-				executor.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.DARK_RED+"Hai gia' piazzato una scommessa su questo evento!");
+				executor.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.DARK_RED+"You already placed a bet on this event!");
 				return true;
 			}
 		}
@@ -157,8 +158,8 @@ public class Bet {
 		return dateOfCreation;
 	}
 
-	public boolean isOpen() {
-		return open;
+	public boolean isOpen(){
+		return this.open;
 	}
 
 	public String getName() {

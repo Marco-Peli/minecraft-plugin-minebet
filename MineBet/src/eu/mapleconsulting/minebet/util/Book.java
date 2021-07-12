@@ -8,18 +8,17 @@ public class Book {
 	public static ItemStack createBook(){
 		ItemStack book=new ItemStack(Material.WRITTEN_BOOK);
 		BookMeta bookMeta= (BookMeta) book.getItemMeta();
-		bookMeta.setPages("Per puntare su un evento utilizzando l'interfaccia grafica, "
-				+ "devi prima aver impostato la tua puntata di default col comando /bet default <puntata>", 
-				"Una volta scelta la tua puntata, impugna un bastone (stick) e, guardando in aria, "
-				+ "premi il tasto destro, ti si aprirà il menu' degli eventi scommessa disponibili (avviati dagli admin!)", "Ogni evento e' "
-				+ "rappresentato da una coppia di libri, e ogni libro rappresenta una delle due parti su cui puntare",
-				"Scommetti sulla parte che ti interessa premendo il tasto destro "
-				+ "del mouse sul libro che rappresenta quella parte, "
-				+ "se hai sbagliato non ti proccupare, digita il comando /bet cancel <nome_evento>", "per annullare la scommessa su di esso! "
-						+ "Non e' possibile piazzare piu scommesse sullo stesso evento, cancella la scommessa precedente per piazzarne una nuova!",
-						"Per avere accesso alla lista completa dei comandi, digita /bet help");
+		bookMeta.setPages("To place a bet on an event with the graphical interfac, "
+				+ "you have to set your default bet with /bet default <bet_amount>", 
+				"Once set the bet default amount, bear a stick (stick) and, looking in the air, "
+				+ "right click, a menu listing all running events will open", "Each event is composed of "
+				+ "a group of books, and each book represents an opponent you can place a bet on",
+				"Bet on the desired opponent by right clicking on the book that represents it, "
+				+ "if you make a mistake don't worry, type /bet cancel <event_name>", "to cancel the bet on it! "
+						+ "If you place a bet on a different opponent while having a bet on another one, the old bet will be deleted!",
+						"To get help about all commands, type /bet help");
 		bookMeta.setAuthor("MineBet");
-		bookMeta.setTitle("Guida a Minebet");
+		bookMeta.setTitle("Guide to MineBet");
 		book.setItemMeta(bookMeta);
 		return book;
 	}

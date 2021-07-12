@@ -14,8 +14,8 @@ public class PlaceBetCommand extends CommandPattern {
 	public PlaceBetCommand(MineBet plugin) {
 		super("bet", "placebet");
 		this.plugin=plugin;
-		setDescription("Piazza una scommessa su un evento.");
-		setUsage("/bet placebet <nome_evento> <sfidante> <scommessa>");
+		setDescription("Place a bet on an event.");
+		setUsage("/bet placebet <event_name> <opponent> <bet_amount>");
 		setArgumentRange(4, 4);
 		setIdentifier("placebet");
 		setPermission("bet.command.placebet");
@@ -32,20 +32,20 @@ public class PlaceBetCommand extends CommandPattern {
 	private boolean placeDefaultBet(Player executor, String[] args){
 		if(!plugin.getDefaultBetsManager().isDefaultBet(executor.getUniqueId().toString())){
 			executor.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.DARK_RED+
-					"Non hai ancora settato una piazzata di default, "+ ChatColor.GOLD+ "/bet default <quota>" 
-						+ChatColor.DARK_RED+"per settarla");
+					"You have not set a default bet amount yet, "+ ChatColor.GOLD+ "/bet default <bet_amount>" 
+						+ChatColor.DARK_RED+" to set");
 			return true;
 		}
 		double placingBet= plugin.getDefaultBetsManager().getDefaultBets().get(executor.getUniqueId().toString());
 		if(placingBet>plugin.getConfigManager().getMaxBet()){
 			executor.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.DARK_RED+
-					"La quota da piazzare inserita e' troppo alta. Cambiala con /bet default. Massima quota consentita: " + ChatColor.WHITE+
+					"Bet amount is too high. change it with /bet default. Max bet amount: " + ChatColor.WHITE+
 						plugin.getConfigManager().getMaxBet());
 			return true;
 		}
 		if(!plugin.getEcon().has(executor, placingBet)){
 			executor.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.DARK_RED+
-					"Non disponi del denaro necessario per piazzare questa scommessa.");
+					"You have not enough money to place this bet.");
 			return true;
 		}
 		return deployBet(executor, args, placingBet);
@@ -61,21 +61,21 @@ public class PlaceBetCommand extends CommandPattern {
 
 			if(!b.isValidChallengerName(challengerName)){
 				executor.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.DARK_RED+
-						"Non esiste nessuno sfidante con questo nome associato a questo evento.");
+						"Opponent name invalid.");
 				return true;
 			}
 			
 			if(b.isOpen()){
 				b.placeBet(challengerName, placingBet, executor);
 				executor.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.GOLD+
-						"Hai correttamente piazzato una scommessa di "+ChatColor.WHITE+""+placingBet+ChatColor.GOLD+" sull'evento "+ChatColor.WHITE+betName);
+						"You successfully placed a bet of "+ChatColor.WHITE+""+placingBet+ChatColor.GOLD+" on event "+ChatColor.WHITE+betName);
 				return true;
 			}else
 				executor.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.DARK_RED+
-						"Le scommesse per questo evento sono chiuse.");
+						"Bets for this event are closed.");
 		} catch (BetNotFoundException e) {
 			executor.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.DARK_RED+
-					"Il nome dell'evento non e' corretto.");
+					"This event does not exist.");
 		}
 		return true;
 	}
@@ -89,18 +89,18 @@ public class PlaceBetCommand extends CommandPattern {
 			placingBet=Double.parseDouble(args[3]);
 			if(placingBet>plugin.getConfigManager().getMaxBet()){
 				executor.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.DARK_RED+
-						"La quota da piazzare inserita e' troppo alta. Massima quota consentita: " + plugin.getConfigManager().getMaxBet());
+						"Bet amount is too high. change it with /bet default. Max bet amount: " + plugin.getConfigManager().getMaxBet());
 				return true;
 			}
 		}catch(NumberFormatException e){
 			executor.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.DARK_RED+
-					"La quota da piazzare inserita non e' valida.");
+					"Bet amount must be a number.");
 			return true;
 		}
 
 		if(!plugin.getEcon().has(executor, placingBet)){
 			executor.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.DARK_RED+
-					"Non disponi del denaro necessario per piazzare questa scommessa.");
+					"You have not enough money to place this bet.");
 			return true;
 		}
 		return deployBet(executor, args, placingBet);

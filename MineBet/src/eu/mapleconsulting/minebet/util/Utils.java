@@ -26,4 +26,9 @@ public class Utils {
 				p.sendMessage(ChatColor.GOLD+"[MineBet] "+ChatColor.WHITE+"Le scommesse per l'evento " + ChatColor.GOLD+betName+ ChatColor.WHITE+" sono state aperte.");
 		}
 	}
+	
+	public static void printConsoleMsg(String msg)
+	{
+		System.out.println("[MineBet] " + msg);
+	}
 }

@@ -7,6 +7,7 @@ import eu.mapleconsulting.minebet.bet.Bet;
 import eu.mapleconsulting.minebet.bet.Challenger;
 import eu.mapleconsulting.minebet.MineBet;
 import eu.mapleconsulting.minebet.exceptions.BetNotFoundException;
+import eu.mapleconsulting.minebet.exceptions.EventClosedException;
 
 public class CloseEventCommand extends CommandPattern {
 
@@ -15,8 +16,8 @@ public class CloseEventCommand extends CommandPattern {
 	public CloseEventCommand(MineBet plugin) {
 		super("bet", "closevent");
 		this.plugin=plugin;
-		setDescription("Chiude un evento e distribuisce le vincite");
-		setUsage("/bet closevent <nome_evento> <vincitore>");
+		setDescription("Close and event and declares winners and losers");
+		setUsage("/bet closevent <bet_event_name> <winner>");
 		setArgumentRange(3, 3);
 		setIdentifier("closevent");
 		setPermission("bet.command.closevent");
@@ -27,7 +28,8 @@ public class CloseEventCommand extends CommandPattern {
 		Bet b;
 		try {
 			b = plugin.getBetHandler().getBetByName(args[1]);
-			if(b.isOpen()){
+			boolean isEventOpen = b.isOpen();
+			if(isEventOpen){
 				b.setOpen(true);
 				executor.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.DARK_RED+ "Le scommesse per questo evento sono ancora aperte, non puoi ancora terminarlo!");
 				return true;
@@ -41,7 +43,7 @@ public class CloseEventCommand extends CommandPattern {
 		}catch(BetNotFoundException e){
 			executor.sendMessage(ChatColor.DARK_RED+
 					"Il nome dell'evento non e' corretto.");
-		}	
+		}
 		return true;
 	}
 	

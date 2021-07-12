@@ -15,8 +15,8 @@ public class HelpCommand extends CommandPattern {
 	public HelpCommand(MineBet plugin) {
 		super("bet", "help");
 		availableCommands=plugin.getCommandHandler().getCommands();
-		setDescription("Visualizza i comandi di Minebet");
-        setUsage("/bet help #pagina[2 pagine]");
+		setDescription("Displays MineBet availeble commands");
+        setUsage("/bet help #page[2 pages]");
         setArgumentRange(1, 2);
         setIdentifier("help");
         setPermission("bet.command.help");
@@ -32,17 +32,17 @@ public class HelpCommand extends CommandPattern {
 			}
 			if(!(pageNumber==1||pageNumber==2)){
 				executor.sendMessage(ChatColor.DARK_RED+
-						"Numero pagina non valido");
+						"Page number invalid");
 				return true;
 			}
-			executor.sendMessage(ChatColor.RED+"MINEBET HELP PAGINA " +
-					ChatColor.WHITE+""+pageNumber +""+ChatColor.GOLD+":");
+			executor.sendMessage(ChatColor.RED+"MINEBET HELP PAGE " +
+					ChatColor.WHITE+""+pageNumber +""+ChatColor.GOLD+" of" + ChatColor.WHITE+"2"+ChatColor.GOLD+":");
 			executor.sendMessage("-------------------------------");
 			
 			return displayHelpCommand(executor);
 		}catch(NumberFormatException e){
 			executor.sendMessage(ChatColor.DARK_RED+
-					"Devi inserire valore intero come numero pagina");
+					"The page number must be a number");
 		}
 		return true;
 		

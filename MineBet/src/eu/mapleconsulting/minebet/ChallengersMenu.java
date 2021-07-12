@@ -23,7 +23,7 @@ import eu.mapleconsulting.minebet.exceptions.BetNotFoundException;
 public class ChallengersMenu implements Listener {
 	
 	private Bet b;
-	private final String challengersMenuName="Lista sfidanti";
+	private final String challengersMenuName="Opponents list";
 	private final int inventorySize=9;
 	private MineBet plugin;
 	
@@ -49,13 +49,13 @@ public class ChallengersMenu implements Listener {
 								} catch (BetNotFoundException e) {
 									event.setCancelled(true);
 									better.closeInventory();
-									better.sendMessage(ChatColor.DARK_RED+"L'evento scommessa selezionato non esiste piu'.");
+									better.sendMessage(ChatColor.DARK_RED+"The selected bet event doesn't exist anymore.");
 								}
 							}
 				}else{
 					event.setCancelled(true);
 					better.closeInventory();
-					better.sendMessage(ChatColor.DARK_RED+"Devi clickare col tasto destro sui libri!");
+					better.sendMessage(ChatColor.DARK_RED+"You have to right click on books!");
 				}
 
 			}
@@ -64,7 +64,7 @@ public class ChallengersMenu implements Listener {
 		}catch(IndexOutOfBoundsException e){
 			event.setCancelled(true);
 			better.closeInventory();
-			better.sendMessage(ChatColor.DARK_RED+"Devi clickare sui libri in alto per scommettere!");
+			better.sendMessage(ChatColor.DARK_RED+"You have to right click on books to bet!");
 		}
 	}
 	
@@ -77,10 +77,10 @@ public class ChallengersMenu implements Listener {
 			ItemMeta betDescription= betButtonChallenger.getItemMeta();
 			betDescription.setDisplayName(ChatColor.RED+b.getName());
 			betDescription.setLore(Arrays.asList(ChatColor.RED+"SFIDANTE "+challengerNum,ChatColor.GREEN+ c.getName(),
-					ChatColor.GREEN +"Quota: "+ ChatColor.WHITE+c.getQuote(), ChatColor.GREEN+"#Scommesse: " + ChatColor.WHITE+c.getBetNumber(),
-					 ChatColor.GREEN+"La tua scommessa: " + ChatColor.GOLD+c.getBetAmount(better), "Stato Scommesse: " +b.displayStatus(),
+					ChatColor.GREEN +"Quote: "+ ChatColor.WHITE+c.getQuote(), ChatColor.GREEN+"#Bets: " + ChatColor.WHITE+c.getBetNumber(),
+					 ChatColor.GREEN+"Your bet: " + ChatColor.GOLD+c.getBetAmount(better), "Bet status: " +b.displayStatus(),
 					ChatColor.AQUA+
-					"Click destro per scommettere su " +ChatColor.WHITE+c.getName()));
+					"Right-click to bet on " +ChatColor.WHITE+c.getName()));
 			betButtonChallenger.setItemMeta(betDescription);
 			placeBetMenu.setItem(i, betButtonChallenger);
 			challengerNum++;

@@ -15,8 +15,8 @@ public class OpenBetsCommand extends CommandPattern {
 	public OpenBetsCommand(MineBet plugin){
 		super("bet", "openbets");
 		this.plugin=plugin;
-		setDescription("Apre le scommesse per un evento");
-		setUsage("/bet openbets <nome_evento>");
+		setDescription("Open bets for an event");
+		setUsage("/bet openbets <event_name>");
 		setArgumentRange(2, 2);
 		setIdentifier("openbets");
 		setPermission("bet.command.openbets");
@@ -29,14 +29,14 @@ public class OpenBetsCommand extends CommandPattern {
 			b = plugin.getBetHandler().getBetByName(args[1]);
 			if(!b.isOpen()){
 				b.setOpen(true);
-				executor.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.GOLD+ "Le scommesse per questo evento sono state aperte.");
+				executor.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.GOLD+ "Bets for this event are now allowed.");
 				Utils.notifyNewBetOpenEvent(b.getName());
 			}else{
-				executor.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.DARK_RED+ "Le scommesse per questo evento sono gia' aperte.");
+				executor.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.DARK_RED+ "Bets for this event are already open.");
 			}
 		}catch(BetNotFoundException e){
 			executor.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.DARK_RED+
-					"Il nome dell'evento non e' corretto.");
+					"Selected bet event does not exist.");
 		}	
 		return true;
 	}
