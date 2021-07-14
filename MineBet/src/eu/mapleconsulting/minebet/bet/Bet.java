@@ -134,6 +134,10 @@ public class Bet {
 	}
 	
 	public void placeBet(String challengerName, double amount, Player better){
+		if(hasAlreadyBidden(better))
+		{
+			refundBetter(better);
+		}
 		for(Challenger c: challengers)
 		{
 			c.removeBet(better);
@@ -142,10 +146,18 @@ public class Bet {
 		getChallengerByName(challengerName).addNewBet(better, amount);
 	}
 	
+	private void refundBetter(Player better)
+	{
+		for(Challenger c: this.challengers){
+			if(c.getBettersUUID().containsKey(better.getUniqueId().toString())){
+				plugin.getEcon().depositPlayer(better, c.getBetAmount(better));
+			}
+		}
+	}
+	
 	public boolean hasAlreadyBidden(Player executor){
-		for(Challenger c: challengers){
+		for(Challenger c: this.challengers){
 			if(c.getBettersUUID().containsKey(executor.getUniqueId().toString())){
-				executor.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.DARK_RED+"You already placed a bet on this event!");
 				return true;
 			}
 		}
