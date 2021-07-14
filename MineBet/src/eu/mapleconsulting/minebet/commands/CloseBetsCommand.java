@@ -16,8 +16,8 @@ public class CloseBetsCommand extends CommandPattern {
 	public CloseBetsCommand(MineBet plugin){
 		super("bet", "closebets");
 		this.plugin=plugin;
-		setDescription("CLose bets for event <bet_event>");
-		setUsage("/bet closebets <bet_event_name>");
+		setDescription("CLose bets for event <event_name>");
+		setUsage("/bet closebets <event_name>");
 		setArgumentRange(2, 2);
 		setIdentifier("closebets");
 		setPermission("bet.command.closebets");

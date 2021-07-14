@@ -124,6 +124,7 @@ public class Bet {
 						"You successfuly removed your bet of " + 
 							ChatColor.WHITE+ bet + " " + ChatColor.GOLD + 
 							plugin.getEcon().currencyNamePlural()+ ChatColor.GOLD+ " on event " + ChatColor.WHITE+ this.name);
+				plugin.getEcon().depositPlayer(executor, bet);
 				return true;
 			}
 		}
@@ -137,6 +138,7 @@ public class Bet {
 		{
 			c.removeBet(better);
 		}
+		plugin.getEcon().withdrawPlayer(better, amount);
 		getChallengerByName(challengerName).addNewBet(better, amount);
 	}
 	
