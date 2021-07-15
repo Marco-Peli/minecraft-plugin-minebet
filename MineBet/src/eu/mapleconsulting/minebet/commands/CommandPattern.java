@@ -1,5 +1,7 @@
 package eu.mapleconsulting.minebet.commands;
 
+import org.bukkit.entity.Player;
+
 public abstract class CommandPattern implements CommandInterface{
 	
 	private String intestation;
@@ -52,7 +54,6 @@ public abstract class CommandPattern implements CommandInterface{
         return name;
     }
 
-
     @Override
     public String getPermission() {
         return permission;
@@ -80,7 +81,11 @@ public abstract class CommandPattern implements CommandInterface{
         this.minArguments = min;
         this.maxArguments = max;
     }
-
+    
+    public void sendInvalidArgsMessage(Player executor)
+    {
+    	
+    }
     public void setDescription(String description) {
         this.description = description;
     }

@@ -12,18 +12,18 @@ public class Utils {
 	
 	public static void notifyNewBetEvent(String betName){
 		for(Player p: Bukkit.getServer().getOnlinePlayers()){
-				p.sendMessage(ChatColor.GOLD+"[MineBet] "+ChatColor.WHITE+"E' stato creato l'evento scommessa " + ChatColor.GOLD+betName+ ChatColor.WHITE+"!");
+				p.sendMessage(ChatColor.GOLD+"[MineBet-Notify] "+ChatColor.WHITE+"The bet event " + ChatColor.GOLD+betName+ ChatColor.WHITE+" has been created!");
 		}
 	}
 	public static void notifyNewBetCloseEvent(String betName){
 		for(Player p: Bukkit.getServer().getOnlinePlayers()){
-				p.sendMessage(ChatColor.GOLD+"[MineBet] "+ChatColor.WHITE+"Le scommesse per l'evento " + ChatColor.GOLD+betName+ ChatColor.WHITE+" sono state chiuse.");
+				p.sendMessage(ChatColor.GOLD+"[MineBet-Notify] "+ChatColor.WHITE+"Bets for event " + ChatColor.GOLD+betName+ ChatColor.WHITE+" are now closed.");
 		}
 	}
 	
 	public static void notifyNewBetOpenEvent(String betName){
 		for(Player p: Bukkit.getServer().getOnlinePlayers()){
-				p.sendMessage(ChatColor.GOLD+"[MineBet] "+ChatColor.WHITE+"Le scommesse per l'evento " + ChatColor.GOLD+betName+ ChatColor.WHITE+" sono state aperte.");
+				p.sendMessage(ChatColor.GOLD+"[MineBet-Notify] "+ChatColor.WHITE+"Bets for event " + ChatColor.GOLD+betName+ ChatColor.WHITE+" are now opened.");
 		}
 	}
 	

@@ -75,7 +75,7 @@ public class BetEventsMenu implements Listener {
 	}
 
 
-	private void openBetEventsMenu(Player p){
+	public void openBetEventsMenu(Player p){
 		Inventory betEventsMenu= Bukkit.createInventory(null, inventorySize, ChatColor.RED+ betEventsMenuName);
 		int i=0;
 		for(Bet b : plugin.getBetHandler().getBetList()){

@@ -14,8 +14,8 @@ public class ListBetsCommand extends CommandPattern {
 		super("bet", "listbets");
 		this.plugin=plugin;
 		setDescription("Displayes all ongoing bet events");
-		setUsage("/bet listbets");
-		setArgumentRange(1, 1);
+		setUsage("/bet listbets [gui]");
+		setArgumentRange(1, 2);
 		setIdentifier("listbets");
 		setPermission("bet.command.listbets");
 	}
@@ -26,23 +26,35 @@ public class ListBetsCommand extends CommandPattern {
 			executor.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.RED+ "No ongoing bet event");
 			return true;
 		}
-		return displayBets(executor);
-	}
-	
-	public boolean displayBets(Player executor){
-			int i=1;
-			for (Bet b: plugin.getBetHandler().getBetList()){
-						if(executor.hasPermission("bet.command.createvent")){
-							executor.sendMessage(i+") " +ChatColor.GOLD+"Event: " + ChatColor.WHITE+b.getName()+ChatColor.GOLD+ChatColor.GOLD+
-									"Opponents: " + ChatColor.WHITE+b.getChallengersAsString()+ChatColor.GOLD+", bets: "
-									+ChatColor.WHITE+""+b.getBetNumber()+ChatColor.GOLD+", by " +ChatColor.WHITE+b.getCreator());
-						}
-						executor.sendMessage(i+") " +ChatColor.GOLD+"Event: " + ChatColor.WHITE+b.getName()+ChatColor.GOLD+ChatColor.GOLD+
-								"Opponents: " + ChatColor.WHITE+b.getChallengersAsString()+ChatColor.GOLD+", bets: "
-								+ChatColor.WHITE+""+b.getBetNumber());				
-				i++;
+		switch(args.length)
+		{
+		case 1:
+			return displayBets(executor);
+		case 2:
+			String guiKeyWord = "gui";
+			if(guiKeyWord.equalsIgnoreCase(args[1]))
+			{
+				plugin.getBetMenuListener().openBetEventsMenu(executor);
 			}
+			else
+			{
+				executor.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.DARK_RED+"Invalid args");
+				executor.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.GOLD+getUsage());
+			}
+		}
 		
+		return true;
+	}
+
+	public boolean displayBets(Player executor){
+		int i=1;
+		for (Bet b: plugin.getBetHandler().getBetList()){
+			executor.sendMessage(i+") " +ChatColor.GOLD+"Event name: " + ChatColor.WHITE+b.getName()+ChatColor.GOLD+ChatColor.GOLD+
+					", Opponents: " + ChatColor.WHITE+b.getChallengersAsString()+ChatColor.GOLD+", bets: "
+					+ChatColor.WHITE+""+b.getBetNumber());				
+			i++;
+		}
+
 		return true;
 	}
 

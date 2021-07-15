@@ -25,6 +25,7 @@ public class MineBet extends JavaPlugin {
     private double updatedVersion;
 	private final String pluginName="MineBet";
 	private PluginUpdater updater;
+	private BetEventsMenu betMenuListener;
 
     private boolean setupEconomy()
     {
@@ -42,6 +43,7 @@ public class MineBet extends JavaPlugin {
 		betHandler=new BetHandler();
 		guideBook=Book.createBook();
 		betHandler=new BetHandler();
+		betMenuListener = new BetEventsMenu(this);
 		addCommands();
 		registerTabCompleter();
 		setupEconomy();
@@ -69,7 +71,7 @@ public class MineBet extends JavaPlugin {
 	}
 	
 	private void registerPlayerListener(){
-			getServer().getPluginManager().registerEvents(new BetEventsMenu(this), this);
+			getServer().getPluginManager().registerEvents(betMenuListener, this);
 			getServer().getPluginManager().registerEvents(new OnJoinListener(this), this);
 	}
 	
@@ -125,6 +127,10 @@ public class MineBet extends JavaPlugin {
 
 	public void setUpdatedVersion(double updatedVersion) {
 		this.updatedVersion = updatedVersion;
+	}
+
+	public BetEventsMenu getBetMenuListener() {
+		return betMenuListener;
 	}
 
 }

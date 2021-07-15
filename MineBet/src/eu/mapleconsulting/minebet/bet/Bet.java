@@ -10,7 +10,6 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
 import eu.mapleconsulting.minebet.MineBet;
-import eu.mapleconsulting.minebet.exceptions.EventClosedException;
 
 public class Bet {
 	private List<Challenger> challengers;
@@ -19,7 +18,7 @@ public class Bet {
 	private String name;
 	private String creator;
 	private MineBet plugin;
-	
+
 	public Bet(MineBet plugin, List<Challenger> challengers, String dateOfCreation,
 			boolean open, String name, String creator) {
 		super();
@@ -30,13 +29,13 @@ public class Bet {
 		this.creator=creator;
 		this.plugin=plugin;
 	}
-	
+
 	public void setNewBetInChallengers(){
 		for(Challenger c: challengers){
 			c.setBet(this);
 		}
 	}
-	
+
 	public List<String> getChallengerNames(){
 		List<String> challengerNames=new ArrayList<>();
 		for(Challenger c: challengers){
@@ -44,16 +43,16 @@ public class Bet {
 		}
 		return challengerNames;
 	}
-	
+
 	public boolean isValidChallengerName(String name){
-	    for(String cname: getChallengerNames()){
-	    	if(cname.equalsIgnoreCase(name)){
+		for(String cname: getChallengerNames()){
+			if(cname.equalsIgnoreCase(name)){
 				return true;
-	    }
-	    }
-	    return false;
+			}
+		}
+		return false;
 	}
-	
+
 	public Challenger getChallengerByName(String name){
 		for(Challenger c: challengers){
 			if(c.getName().equalsIgnoreCase(name)){
@@ -62,7 +61,7 @@ public class Bet {
 		}
 		return null;
 	}
-	
+
 	public String getChallengersAsString(){
 		String challengers="";
 		for(int i=0; i<(getChallengerNames().size()-1); i++){
@@ -71,7 +70,7 @@ public class Bet {
 		challengers=challengers+challengers+getChallengerNames().get((getChallengerNames().size()-1));
 		return challengers;
 	}
-	
+
 	public int getBetNumber(){
 		int bets=0;
 		for(Challenger c: challengers){
@@ -79,13 +78,13 @@ public class Bet {
 		}
 		return bets;
 	}
-	
+
 	public String displayStatus(){
 		if(open){
 			return ChatColor.GREEN+"APERTE";
 		} else return ChatColor.RED+"CHIUSE";
 	}
-	
+
 	public void notifyLoosers(Challenger cwinner){
 		for(Challenger c: challengers){
 			if(!c.equals(cwinner)){
@@ -96,12 +95,12 @@ public class Bet {
 					p.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.GOLD+"You lost in event "+ ChatColor.WHITE+ this.name
 							+ ChatColor.GOLD+", you lose " + ChatColor.WHITE+""+bet+ChatColor.GOLD+ " "+ 
 							plugin.getEcon().currencyNamePlural());
-					
+
 				}
 			}
 		}
 	}
-	
+
 	public void payWinners(Challenger cwinner){
 		for(String winnerPlayerUUID: cwinner.getBettersUUID().keySet()){
 			Player p;
@@ -114,7 +113,7 @@ public class Bet {
 			plugin.getEcon().depositPlayer(p, payment);
 		}
 	}
-	
+
 	public boolean cancelBet(Player executor){
 		for(Challenger c: this.challengers){
 			if(c.getBettersUUID().containsKey(executor.getUniqueId().toString())){
@@ -122,8 +121,8 @@ public class Bet {
 				c.getBettersUUID().remove(executor.getUniqueId().toString());
 				executor.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.GOLD+
 						"You successfuly removed your bet of " + 
-							ChatColor.WHITE+ bet + " " + ChatColor.GOLD + 
-							plugin.getEcon().currencyNamePlural()+ ChatColor.GOLD+ " on event " + ChatColor.WHITE+ this.name);
+						ChatColor.WHITE+ bet + " " + ChatColor.GOLD + 
+						plugin.getEcon().currencyNamePlural()+ ChatColor.GOLD+ " on event " + ChatColor.WHITE+ this.name);
 				plugin.getEcon().depositPlayer(executor, bet);
 				return true;
 			}
@@ -132,7 +131,7 @@ public class Bet {
 				"You have no bets on this event");
 		return true;
 	}
-	
+
 	public void placeBet(String challengerName, double amount, Player better){
 		if(hasAlreadyBidden(better))
 		{
@@ -145,7 +144,7 @@ public class Bet {
 		plugin.getEcon().withdrawPlayer(better, amount);
 		getChallengerByName(challengerName).addNewBet(better, amount);
 	}
-	
+
 	private void refundBetter(Player better)
 	{
 		for(Challenger c: this.challengers){
@@ -154,7 +153,7 @@ public class Bet {
 			}
 		}
 	}
-	
+
 	public boolean hasAlreadyBidden(Player executor){
 		for(Challenger c: this.challengers){
 			if(c.getBettersUUID().containsKey(executor.getUniqueId().toString())){
@@ -187,5 +186,5 @@ public class Bet {
 	public void setOpen(boolean open) {
 		this.open = open;
 	}
-	
+
 }
