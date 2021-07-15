@@ -81,8 +81,8 @@ public class Bet {
 
 	public String displayStatus(){
 		if(open){
-			return ChatColor.GREEN+"APERTE";
-		} else return ChatColor.RED+"CHIUSE";
+			return ChatColor.GREEN+"OPEN";
+		} else return ChatColor.RED+"CLOSED";
 	}
 
 	public void notifyLoosers(Challenger cwinner){

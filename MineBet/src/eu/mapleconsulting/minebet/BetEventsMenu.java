@@ -24,7 +24,7 @@ import eu.mapleconsulting.minebet.exceptions.BetNotFoundException;
 public class BetEventsMenu implements Listener {
 
 	private MineBet plugin;
-	private final String betEventsMenuName="Eventi MineBet";
+	private final String betEventsMenuName="MineBet events";
 	private final int inventorySize=45;
 
 	public BetEventsMenu(MineBet plugin){
@@ -71,7 +71,7 @@ public class BetEventsMenu implements Listener {
 				ItemStack betButtonChallenger = new ItemStack(Material.BOOK);
 				ItemMeta betDescription= betButtonChallenger.getItemMeta();
 				betDescription.setDisplayName(ChatColor.RED+b.getName());
-				betDescription.setLore(Arrays.asList(ChatColor.RED+"SFIDANTE "+challengerNum,ChatColor.GREEN+ c.getName(),
+				betDescription.setLore(Arrays.asList(ChatColor.RED+"OPPONENT "+challengerNum,ChatColor.GREEN+ c.getName(),
 						ChatColor.GREEN +"Quota: "+ ChatColor.WHITE+c.getQuote(), ChatColor.GREEN+"#Bets: " + ChatColor.WHITE+c.getBetNumber(),
 						ChatColor.GREEN+"Your bet: " + ChatColor.GOLD+c.getBetAmount(p), "Bet status: " +b.displayStatus(),
 						ChatColor.AQUA+

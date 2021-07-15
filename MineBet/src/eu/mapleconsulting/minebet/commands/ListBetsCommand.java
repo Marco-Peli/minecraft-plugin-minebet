@@ -51,7 +51,8 @@ public class ListBetsCommand extends CommandPattern {
 		for (Bet b: plugin.getBetHandler().getBetList()){
 			executor.sendMessage(i+") " +ChatColor.GOLD+"Event name: " + ChatColor.WHITE+b.getName()+ChatColor.GOLD+ChatColor.GOLD+
 					", Opponents: " + ChatColor.WHITE+b.getChallengersAsString()+ChatColor.GOLD+", bets: "
-					+ChatColor.WHITE+""+b.getBetNumber());				
+					+ChatColor.WHITE+""+b.getBetNumber() + ChatColor.GOLD+", status: "
+					+ChatColor.WHITE+""+b.displayStatus());				
 			i++;
 		}
 
