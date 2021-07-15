@@ -38,8 +38,8 @@ public class ListBetsCommand extends CommandPattern {
 			}
 			else
 			{
-				executor.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.DARK_RED+"Invalid args");
-				executor.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.GOLD+getUsage());
+				executor.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.DARK_RED+"Invalid arguments, correct use:");
+				executor.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.GOLD + getUsage());
 			}
 		}
 		
