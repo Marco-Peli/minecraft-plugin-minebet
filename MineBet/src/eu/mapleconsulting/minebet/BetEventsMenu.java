@@ -59,6 +59,10 @@ public class BetEventsMenu implements Listener {
 			better.closeInventory();
 			better.sendMessage(ChatColor.WHITE+"[MineBet] "+ChatColor.DARK_RED+"You have to right click on books to place a bet!");
 		}
+		catch(NullPointerException e)
+		{
+			
+		}
 	}
 
 
