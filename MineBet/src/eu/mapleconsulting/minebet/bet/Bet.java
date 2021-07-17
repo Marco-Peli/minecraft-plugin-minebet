@@ -64,10 +64,11 @@ public class Bet {
 
 	public String getChallengersAsString(){
 		String challengers="";
-		for(int i=0; i<(getChallengerNames().size()-1); i++){
-			challengers=challengers+getChallengerNames().get(i)+", ";
+		for (String opponentName: getChallengerNames())
+		{
+			challengers += opponentName + " ";
 		}
-		challengers=challengers+challengers+getChallengerNames().get((getChallengerNames().size()-1));
+		challengers = challengers.trim();
 		return challengers;
 	}
 

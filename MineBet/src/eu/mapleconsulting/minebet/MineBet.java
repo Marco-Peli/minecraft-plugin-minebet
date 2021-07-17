@@ -87,7 +87,7 @@ public class MineBet extends JavaPlugin {
 		commandHandler.addCommand(new HelpCommand(this));
 		commandHandler.addCommand(new DefaultBetCommand(this));
 		commandHandler.addCommand(new GuideBookCommand(this));
-		//commandHandler.addCommand(new UpdateCommand(this));
+		commandHandler.addCommand(new AbortBetEventCommand(this));
 	}
 	
 	public Economy getEcon() {
